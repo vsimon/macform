@@ -1,0 +1,111 @@
+# macform.yaml — annotated reference configuration
+#
+# This file documents every supported setting with its description, type,
+# valid values, and macOS system default. Copy this file to your project root
+# (or home directory) as macform.yaml and customise to taste.
+
+dock:
+  # Description: Auto-hide the Dock when the pointer is not near it
+  # Type: bool
+  # Default: false
+  autohide: false
+
+  # Description: Icon size in pixels for items in the Dock
+  # Type: int
+  # Default: 48
+  tile-size: 48
+
+  # Description: Position of the Dock on the screen
+  # Type: string
+  # Valid values: bottom | left | right
+  # Default: bottom
+  orientation: bottom
+
+  # Description: Minimize windows into their application icon instead of the Dock
+  # Type: bool
+  # Default: false
+  minimize-to-application: false
+
+  # Description: Show recently opened applications in the Dock
+  # Type: bool
+  # Default: true
+  show-recents: true
+
+  # Description: Enable Dock icon magnification when the pointer hovers over it
+  # Type: bool
+  # Default: false
+  magnification: false
+
+  # Description: Maximum icon size in pixels when magnification is active
+  # Type: int
+  # Default: 128
+  large-size: 128
+
+  # Description: Animation effect used when minimizing windows
+  # Type: string
+  # Valid values: genie | scale | suck
+  # Default: genie
+  min-effect: genie
+
+finder:
+  # Description: Show hidden files and folders (those whose names start with a dot)
+  # Type: bool
+  # Default: false
+  show-hidden-files: false
+
+  # Description: Always show file name extensions in the Finder
+  # Type: bool
+  # Default: false
+  show-extensions: false
+
+  # Description: Show the path bar at the bottom of Finder windows
+  # Type: bool
+  # Default: false
+  show-path-bar: false
+
+  # Description: Show the status bar at the bottom of Finder windows
+  # Type: bool
+  # Default: false
+  show-status-bar: false
+
+  # Description: Default view style for new Finder windows
+  # Type: string
+  # Valid values: icon | list | column | gallery
+  # Default: icon
+  default-view-style: icon
+
+  # Description: Show a warning dialog when changing a file's extension
+  # Type: bool
+  # Default: true
+  warn-on-extension-change: true
+
+display:
+  # Description: Automatically adjust display brightness based on ambient light
+  # Type: bool
+  # Default: true
+  auto-brightness: true
+
+trackpad:
+  # Description: Enable tap to click on the trackpad
+  # Type: bool
+  # Default: false
+  tap-to-click: false
+
+  # Description: Trackpad tracking speed
+  # Type: float
+  # Valid values: 0.0 (slowest) to 3.0 (fastest)
+  # Default: 0.875
+  tracking-speed: 0.875
+
+keyboard:
+  # Description: Key repeat rate
+  # Type: integer
+  # Valid values: 1 (fastest) to 120 (slowest)
+  # Default: 5
+  repeat-rate: 5
+
+  # Description: Delay until key repeat starts
+  # Type: integer
+  # Valid values: 10 (shortest) to 120
+  # Default: 35
+  repeat-delay: 35

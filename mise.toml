@@ -1,0 +1,28 @@
+[env]
+_.file = ".env"
+
+[tools]
+go = "1.22"
+goreleaser = "2"
+
+[tasks.build]
+description = "Build the binary"
+run = "go build -o bin/macform main.go"
+
+[tasks.test]
+description = "Run tests"
+run = "go test ./..."
+
+[tasks.clean]
+description = "Remove build artifacts"
+run = "rm -rf bin/"
+
+[tasks.plan]
+description = "Run macform plan"
+depends = ["build"]
+run = "bin/macform plan"
+
+[tasks.apply]
+description = "Run macform apply"
+depends = ["build"]
+run = "bin/macform apply"
