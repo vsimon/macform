@@ -17,7 +17,6 @@ if application "System Settings" is running then
 	end tell
 end if
 do shell script "open -g x-apple.systempreferences:com.apple.Displays-Settings.extension"
-tell application "System Settings" to activate
 delay 1
 tell application "System Events"
 	tell process "System Settings"
