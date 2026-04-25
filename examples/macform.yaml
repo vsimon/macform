@@ -74,6 +74,12 @@ finder:
   # Default: icon
   default-view-style: icon
 
+  # Description: Target folder for new Finder windows
+  # Type: string
+  # Valid values: recents | home | desktop | documents | computer | volumes | icloud-drive
+  # Default: recents
+  new-window-target: recents
+
   # Description: Show a warning dialog when changing a file's extension
   # Type: bool
   # Default: true
