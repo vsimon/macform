@@ -80,7 +80,7 @@ func TestAllDockSettingsRegistered(t *testing.T) {
 func TestAllFinderSettingsRegistered(t *testing.T) {
 	expected := []string{
 		"show-hidden-files", "show-extensions", "show-path-bar",
-		"show-status-bar", "default-view-style", "warn-on-extension-change",
+		"show-status-bar", "default-view-style", "warn-on-extension-change", "new-window-target",
 	}
 	for _, key := range expected {
 		if _, ok := Lookup("finder", key); !ok {

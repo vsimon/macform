@@ -84,6 +84,13 @@ var sections = map[string][]SettingDef{
 			SpecKey: "warn-on-extension-change", Type: "bool", RestartProcess: "Finder",
 			Provider: provider.NewDefaults("com.apple.finder", "FXEnableExtensionChangeWarning", "bool"),
 		},
+		{
+			SpecKey: "new-window-target", Type: "string", RestartProcess: "Finder",
+			Provider: provider.NewDefaults("com.apple.finder", "NewWindowTarget", "string"),
+			ValueMap: map[string]string{
+				"recents": "PfAF", "home": "PfHm", "desktop": "PfDe", "documents": "PfDo", "computer": "PfCm", "volumes": "PfVo", "icloud-drive": "PfID",
+			},
+		},
 	},
 	"display": {
 		{
