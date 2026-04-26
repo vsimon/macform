@@ -100,13 +100,18 @@ battery:
 control-center:
   # Description: Show the battery icon in the menu bar
   # Type: bool
-  # Default: false
-  show-battery: false
+  # Default: true
+  show-battery: true
 
   # Description: Show battery percentage in the menu bar
   # Type: bool
   # Default: false
   show-battery-percentage: false
+
+  # Description: Show the Wi-Fi icon in the menu bar
+  # Type: bool
+  # Default: true
+  show-wifi: true
 
 trackpad:
   # Description: Enable tap to click on the trackpad
