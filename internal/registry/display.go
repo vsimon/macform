@@ -24,8 +24,49 @@ tell application "System Events"
 		set waited to 0
 		repeat while waited < 10
 			try
-				set cb to checkbox "Automatically adjust brightness" of group 1 of scroll area 2 of group 1 of group 3 of splitter group 1 of group 1 of window 1
-				exit repeat
+				set g3 to group 1 of group 3 of splitter group 1 of group 1 of window "Displays"
+				-- Find the scroll area describing Built-in Display settings
+				set settingsSA to missing value
+				repeat with saIdx from 1 to count scroll areas of g3
+					if description of scroll area saIdx of g3 contains "Built-in" then
+						set settingsSA to scroll area saIdx of g3
+						exit repeat
+					end if
+				end repeat
+				-- Not visible: click each display thumbnail until Built-in settings appear
+				if settingsSA is missing value then
+					set thumbSA to missing value
+					repeat with saIdx from 1 to count scroll areas of g3
+						if description of scroll area saIdx of g3 is "Displays" then
+							set thumbSA to scroll area saIdx of g3
+							exit repeat
+						end if
+					end repeat
+					if thumbSA is not missing value then
+						repeat with btnIdx from 1 to count buttons of thumbSA
+							click button btnIdx of thumbSA
+							delay 0.7
+							set g3 to group 1 of group 3 of splitter group 1 of group 1 of window "Displays"
+							repeat with saIdx from 1 to count scroll areas of g3
+								if description of scroll area saIdx of g3 contains "Built-in" then
+									set settingsSA to scroll area saIdx of g3
+									exit repeat
+								end if
+							end repeat
+							if settingsSA is not missing value then exit repeat
+						end repeat
+					end if
+				end if
+				-- Search all groups in the settings scroll area for the checkbox
+				if settingsSA is not missing value then
+					repeat with gi from 1 to count groups of settingsSA
+						try
+							set cb to checkbox "Automatically adjust brightness" of group gi of settingsSA
+							exit repeat
+						end try
+					end repeat
+				end if
+				if cb is not missing value then exit repeat
 			end try
 			delay 0.5
 			set waited to waited + 1

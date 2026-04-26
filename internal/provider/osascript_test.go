@@ -2,6 +2,7 @@ package provider
 
 import (
 	"errors"
+	"strings"
 	"testing"
 )
 
@@ -67,8 +68,10 @@ func TestRunOsascriptWithRetry_FriendlyErrorAfterBothFail(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error, got nil")
 	}
-	want := "osascript: System Settings couldn't be reached after 2 attempts \u2014 close any open dialogs and try again"
-	if err.Error() != want {
-		t.Errorf("got error %q\nwant      %q", err.Error(), want)
+	if !strings.Contains(err.Error(), "System Settings couldn't be reached after 2 attempts") {
+		t.Errorf("unexpected error: %q", err.Error())
+	}
+	if !strings.Contains(err.Error(), "Can't get scroll area 2") {
+		t.Errorf("expected underlying error in message, got: %q", err.Error())
 	}
 }

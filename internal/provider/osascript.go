@@ -1,7 +1,6 @@
 package provider
 
 import (
-	"errors"
 	"fmt"
 	"os/exec"
 	"strings"
@@ -73,7 +72,7 @@ func runOsascriptWithRetry(script string) (string, error) {
 	if err == nil {
 		return out, nil
 	}
-	return "", errors.New("osascript: System Settings couldn't be reached after 2 attempts \u2014 close any open dialogs and try again")
+	return "", fmt.Errorf("osascript: System Settings couldn't be reached after 2 attempts \u2014 close any open dialogs and try again (%w)", err)
 }
 
 func runOsascript(script string) (string, error) {

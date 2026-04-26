@@ -91,6 +91,12 @@ display:
   # Default: true
   auto-brightness: true
 
+battery:
+  # Description: Slightly dim the display when on battery power
+  # Type: bool
+  # Default: true
+  slightly-dim-on-battery: true
+
 trackpad:
   # Description: Enable tap to click on the trackpad
   # Type: bool
