@@ -55,6 +55,10 @@ var sections = map[string][]SettingDef{
 			SpecKey: "min-effect", Type: "string", RestartProcess: "Dock",
 			Provider: provider.NewDefaults("com.apple.dock", "mineffect", "string"),
 		},
+		{
+			SpecKey: "scroll-to-open", Type: "bool", RestartProcess: "Dock",
+			Provider: provider.NewDefaults("com.apple.dock", "scroll-to-open", "bool"),
+		},
 	},
 	"finder": {
 		{
