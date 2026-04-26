@@ -97,6 +97,12 @@ battery:
   # Default: true
   slightly-dim-on-battery: true
 
+control-center:
+  # Description: Show battery percentage in the menu bar
+  # Type: bool
+  # Default: false
+  battery-show-percentage: false
+
 trackpad:
   # Description: Enable tap to click on the trackpad
   # Type: bool
