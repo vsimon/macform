@@ -99,6 +99,13 @@ var sections = map[string][]SettingDef{
 			Provider: provider.NewOsascript("auto-brightness", autoBrightnessReadScript, autoBrightnessWriteScript, "true"),
 		},
 	},
+	"battery": {
+		{
+			SpecKey:  "slightly-dim-on-battery",
+			Type:     "bool",
+			Provider: provider.NewOsascript("slightly-dim-on-battery", slightlyDimReadScript, slightlyDimWriteScript, "true"),
+		},
+	},
 	"trackpad": trackpadSettings,
 	"keyboard": keyboardSettings,
 }
@@ -124,7 +131,7 @@ func SectionKeys(section string) []SettingDef {
 
 // Sections returns the ordered list of section names.
 func Sections() []string {
-	return []string{"dock", "finder", "display", "trackpad", "keyboard"}
+	return []string{"dock", "finder", "display", "battery", "trackpad", "keyboard"}
 }
 
 // Encode converts a spec value to its system (defaults) representation.

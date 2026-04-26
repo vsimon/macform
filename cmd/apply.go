@@ -64,6 +64,7 @@ var applyCmd = &cobra.Command{
 		printer.PrintPlan(entries)
 
 		if !autoApprove {
+			fmt.Println()
 			fmt.Println("Do you want to perform these actions?")
 			fmt.Println("  macform will perform the actions described above.")
 			fmt.Println("  Only 'yes' will be accepted to approve.")
@@ -77,6 +78,7 @@ var applyCmd = &cobra.Command{
 				fmt.Fprintln(os.Stderr, "Apply cancelled.")
 				return fmt.Errorf("apply cancelled")
 			}
+			fmt.Println()
 		}
 
 		var added, changed, removed int
@@ -123,6 +125,7 @@ var applyCmd = &cobra.Command{
 			}
 		}
 
+		fmt.Println()
 		if NoColor {
 			fmt.Printf("Apply complete! Resources: %d added, %d changed, %d removed.\n", added, changed, removed)
 		} else {
