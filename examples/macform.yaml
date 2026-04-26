@@ -154,3 +154,52 @@ keyboard:
   # Valid values: do-nothing | change-input-source | show-emoji | start-dictation
   # Default: show-emoji
   function-key-action: show-emoji
+
+hot-corners:
+  # Description: Action triggered when the cursor reaches the top-left corner of the screen
+  # Type: string
+  # Valid values: no-op | mission-control | application-windows | desktop | start-screen-saver | disable-screen-saver | dashboard | put-display-to-sleep | launchpad | notification-center | lock-screen | quick-note
+  # Default: no-op
+  top-left: no-op
+
+  # Description: Modifier key that must be held to trigger the top-left corner action
+  # Type: string
+  # Valid values: none | shift | control | option | command
+  # Default: none
+  top-left-modifier: none
+
+  # Description: Action triggered when the cursor reaches the top-right corner of the screen
+  # Type: string
+  # Valid values: no-op | mission-control | application-windows | desktop | start-screen-saver | disable-screen-saver | dashboard | put-display-to-sleep | launchpad | notification-center | lock-screen | quick-note
+  # Default: no-op
+  top-right: no-op
+
+  # Description: Modifier key that must be held to trigger the top-right corner action
+  # Type: string
+  # Valid values: none | shift | control | option | command
+  # Default: none
+  top-right-modifier: none
+
+  # Description: Action triggered when the cursor reaches the bottom-left corner of the screen
+  # Type: string
+  # Valid values: no-op | mission-control | application-windows | desktop | start-screen-saver | disable-screen-saver | dashboard | put-display-to-sleep | launchpad | notification-center | lock-screen | quick-note
+  # Default: no-op
+  bottom-left: no-op
+
+  # Description: Modifier key that must be held to trigger the bottom-left corner action
+  # Type: string
+  # Valid values: none | shift | control | option | command
+  # Default: none
+  bottom-left-modifier: none
+
+  # Description: Action triggered when the cursor reaches the bottom-right corner of the screen
+  # Type: string
+  # Valid values: no-op | mission-control | application-windows | desktop | start-screen-saver | disable-screen-saver | dashboard | put-display-to-sleep | launchpad | notification-center | lock-screen | quick-note
+  # Default: no-op
+  bottom-right: quick-note
+
+  # Description: Modifier key that must be held to trigger the bottom-right corner action
+  # Type: string
+  # Valid values: none | shift | control | option | command
+  # Default: none
+  bottom-right-modifier: none

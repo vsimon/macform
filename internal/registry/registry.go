@@ -113,6 +113,7 @@ var sections = map[string][]SettingDef{
 	"control-center": controlCenterSettings,
 	"trackpad":       trackpadSettings,
 	"keyboard":       keyboardSettings,
+	"hot-corners":    hotCornerSettings,
 }
 
 // Lookup finds a SettingDef by section and spec key.
@@ -136,7 +137,7 @@ func SectionKeys(section string) []SettingDef {
 
 // Sections returns the ordered list of section names.
 func Sections() []string {
-	return []string{"dock", "finder", "display", "battery", "control-center", "trackpad", "keyboard"}
+	return []string{"dock", "finder", "display", "battery", "control-center", "trackpad", "keyboard", "hot-corners"}
 }
 
 // Encode converts a spec value to its system (defaults) representation.
