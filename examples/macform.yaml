@@ -113,6 +113,11 @@ control-center:
   # Default: false
   show-battery-percentage: false
 
+  # Description: Show the Bluetooth icon in the menu bar
+  # Type: bool
+  # Default: false
+  show-bluetooth: false
+
   # Description: Show the Wi-Fi icon in the menu bar
   # Type: bool
   # Default: true
