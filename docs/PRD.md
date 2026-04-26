@@ -145,7 +145,7 @@ When setting up a new Mac, developers spend significant time manually tweaking S
 - Global flag `--no-color` disables ANSI color output for all commands
 - Also respected when `NO_COLOR` environment variable is set (per [no-color.org](https://no-color.org) convention)
 
-### FR-6: Spec validation
+### FR-8: Spec validation
 
 - The spec file is validated before any read or write operation
 - Errors that abort immediately:
@@ -245,7 +245,7 @@ dock:
 - **Homebrew tap**: GoReleaser auto-updates `vsimon/homebrew-tap` with a generated formula after each release
 - **Version embedding**: Build injects `version`, `commit`, and `date` via `-ldflags` so `macform --version` reports accurate release info
 
-### FR-8: Exit codes
+### FR-14: Exit codes
 
 | Command | Condition | Exit code |
 | --- | --- | --- |

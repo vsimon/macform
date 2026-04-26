@@ -21,6 +21,10 @@ macform plan
 macform apply
 ```
 
+## Available settings
+
+[`examples/macform.yaml`](examples/macform.yaml) lists every supported setting with its description, type, valid values, and macOS default. Copy it as a starting point for your own spec.
+
 ## Compatibility
 
 Requires macOS Tahoe or later.
