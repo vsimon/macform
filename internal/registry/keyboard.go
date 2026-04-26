@@ -13,4 +13,20 @@ var keyboardSettings = []SettingDef{
 		Type:     "int",
 		Provider: provider.NewDefaults("NSGlobalDomain", "InitialKeyRepeat", "int"),
 	},
+	{
+		SpecKey:  "function-keys",
+		Type:     "string",
+		Provider: provider.NewDefaults("NSGlobalDomain", "com.apple.keyboard.fnState", "bool"),
+		ValueMap: map[string]string{
+			"special": "0", "standard": "1",
+		},
+	},
+	{
+		SpecKey:  "function-key-action",
+		Type:     "string",
+		Provider: provider.NewDefaults("com.apple.HIToolbox", "AppleFnUsageType", "int"),
+		ValueMap: map[string]string{
+			"do-nothing": "0", "change-input-source": "1", "show-emoji": "2", "start-dictation": "3",
+		},
+	},
 }

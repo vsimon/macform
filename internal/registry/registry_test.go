@@ -127,7 +127,7 @@ func TestSectionsIncludesTrackpad(t *testing.T) {
 }
 
 func TestAllKeyboardSettingsRegistered(t *testing.T) {
-	expected := []string{"repeat-rate", "repeat-delay"}
+	expected := []string{"repeat-rate", "repeat-delay", "function-keys", "function-key-action"}
 	for _, key := range expected {
 		def, ok := Lookup("keyboard", key)
 		if !ok {
