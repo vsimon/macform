@@ -68,7 +68,7 @@ func TestEncodeDecode_NoValueMap(t *testing.T) {
 func TestAllDockSettingsRegistered(t *testing.T) {
 	expected := []string{
 		"autohide", "tile-size", "orientation", "minimize-to-application",
-		"show-recents", "magnification", "large-size", "min-effect",
+		"show-recents", "magnification", "large-size", "min-effect", "scroll-to-open",
 	}
 	for _, key := range expected {
 		if _, ok := Lookup("dock", key); !ok {

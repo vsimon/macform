@@ -47,6 +47,11 @@ dock:
   # Default: genie
   min-effect: genie
 
+  # Description: Enable scroll-to-open for Dock items, scroll up on a Dock icon to show all Space's opened windows
+  # Type: bool
+  # Default: false
+  scroll-to-open: false
+
 finder:
   # Description: Show hidden files and folders (those whose names start with a dot)
   # Type: bool
