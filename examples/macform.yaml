@@ -118,6 +118,11 @@ control-center:
   # Default: false
   show-bluetooth: false
 
+  # Description: Show the Spotlight icon in the menu bar
+  # Type: bool
+  # Default: true
+  show-spotlight: true
+
   # Description: Show the Wi-Fi icon in the menu bar
   # Type: bool
   # Default: true
