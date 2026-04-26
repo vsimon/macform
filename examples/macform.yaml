@@ -121,3 +121,15 @@ keyboard:
   # Valid values: 10 (shortest) to 120
   # Default: 35
   repeat-delay: 35
+
+  # Description: Behavior of the function keys (F1, F2, etc.)
+  # Type: string
+  # Valid values: special | standard
+  # Default: special
+  function-keys: special
+
+  # Description: Action performed when pressing the Fn / Globe key
+  # Type: string
+  # Valid values: do-nothing | change-input-source | show-emoji | start-dictation
+  # Default: show-emoji
+  function-key-action: show-emoji
