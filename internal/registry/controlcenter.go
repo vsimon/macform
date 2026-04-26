@@ -16,6 +16,12 @@ var controlCenterSettings = []SettingDef{
 		ValueMap: map[string]string{"true": "18", "false": "24"},
 	},
 	{
+		SpecKey:  "show-spotlight",
+		Type:     "bool",
+		Provider: provider.NewDefaults("com.apple.Spotlight", "MenuItemHidden", "int"),
+		ValueMap: map[string]string{"true": "0", "false": "1"},
+	},
+	{
 		SpecKey:  "show-wifi",
 		Type:     "bool",
 		Provider: provider.NewDefaults("com.apple.controlcenter", "WiFi", "int"),
