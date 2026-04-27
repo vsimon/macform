@@ -118,6 +118,12 @@ control-center:
   # Default: false
   show-bluetooth: false
 
+  # Description: Show the Sound icon in the menu bar
+  # Type: string
+  # Valid values: always | when-active | never
+  # Default: when-active
+  show-sound: when-active
+
   # Description: Show the Spotlight icon in the menu bar
   # Type: bool
   # Default: true

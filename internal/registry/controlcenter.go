@@ -16,6 +16,12 @@ var controlCenterSettings = []SettingDef{
 		ValueMap: map[string]string{"true": "18", "false": "24"},
 	},
 	{
+		SpecKey:  "show-sound",
+		Type:     "string",
+		Provider: provider.NewCurrentHostDefaults("com.apple.controlcenter", "Sound", "int"),
+		ValueMap: map[string]string{"always": "18", "when-active": "2", "never": "24"},
+	},
+	{
 		SpecKey:  "show-spotlight",
 		Type:     "bool",
 		Provider: provider.NewDefaults("com.apple.Spotlight", "MenuItemHidden", "int"),
