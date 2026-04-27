@@ -29,4 +29,9 @@ var keyboardSettings = []SettingDef{
 			"do-nothing": "0", "change-input-source": "1", "show-emoji": "2", "start-dictation": "3",
 		},
 	},
+	{
+		SpecKey:  "auto-capitalize",
+		Type:     "bool",
+		Provider: provider.NewDefaults("NSGlobalDomain", "NSAutomaticCapitalizationEnabled", "bool"),
+	},
 }

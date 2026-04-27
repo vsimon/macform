@@ -165,6 +165,11 @@ keyboard:
   # Default: show-emoji
   function-key-action: show-emoji
 
+  # Description: Automatically capitalize the first letter of sentences
+  # Type: bool
+  # Default: true
+  auto-capitalize: true
+
 hot-corners:
   # Description: Action triggered when the cursor reaches the top-left corner of the screen
   # Type: string
