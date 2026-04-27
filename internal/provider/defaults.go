@@ -11,7 +11,7 @@ import (
 // For "read" operations, exit code 1 is translated to errKeyNotFound.
 var defaultsRunner = func(args ...string) ([]byte, error) {
 	out, err := exec.Command("defaults", args...).CombinedOutput()
-	if err != nil && args[0] == "read" {
+	if err != nil && isReadCmd(args) {
 		if exitErr, ok := err.(*exec.ExitError); ok && exitErr.ExitCode() == 1 {
 			return nil, errKeyNotFound
 		}
@@ -19,12 +19,25 @@ var defaultsRunner = func(args ...string) ([]byte, error) {
 	return out, err
 }
 
+func isReadCmd(args []string) bool {
+	for _, a := range args {
+		if a == "read" {
+			return true
+		}
+		if a != "-currentHost" {
+			break
+		}
+	}
+	return false
+}
+
 var errKeyNotFound = errors.New("defaults: key not found")
 
 type defaultsProvider struct {
-	domain string
-	key    string
-	typ    string
+	domain      string
+	key         string
+	typ         string
+	currentHost bool
 }
 
 // NewDefaults returns a Provider bound to a single defaults key.
@@ -32,8 +45,21 @@ func NewDefaults(domain, key, typ string) Provider {
 	return &defaultsProvider{domain: domain, key: key, typ: typ}
 }
 
+// NewCurrentHostDefaults returns a Provider that reads/writes with "defaults -currentHost".
+func NewCurrentHostDefaults(domain, key, typ string) Provider {
+	return &defaultsProvider{domain: domain, key: key, typ: typ, currentHost: true}
+}
+
+func (d *defaultsProvider) cmd(subcmd string, extra ...string) []string {
+	args := []string{subcmd, d.domain, d.key}
+	if d.currentHost {
+		args = append([]string{"-currentHost"}, args...)
+	}
+	return append(args, extra...)
+}
+
 func (d *defaultsProvider) Read() (string, bool, error) {
-	out, err := defaultsRunner("read", d.domain, d.key)
+	out, err := defaultsRunner(d.cmd("read")...)
 	if err != nil {
 		if err == errKeyNotFound {
 			return "", false, nil
@@ -48,7 +74,7 @@ func (d *defaultsProvider) Write(value string) error {
 	if err != nil {
 		return err
 	}
-	out, err := defaultsRunner("write", d.domain, d.key, flag, value)
+	out, err := defaultsRunner(d.cmd("write", flag, value)...)
 	if err != nil {
 		return fmt.Errorf("defaults write %s %s: %s: %w", d.domain, d.key, strings.TrimSpace(string(out)), err)
 	}
@@ -56,7 +82,7 @@ func (d *defaultsProvider) Write(value string) error {
 }
 
 func (d *defaultsProvider) Delete() error {
-	out, err := defaultsRunner("delete", d.domain, d.key)
+	out, err := defaultsRunner(d.cmd("delete")...)
 	if err != nil {
 		return fmt.Errorf("defaults delete %s %s: %s: %w", d.domain, d.key, strings.TrimSpace(string(out)), err)
 	}
