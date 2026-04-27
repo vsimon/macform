@@ -17,4 +17,9 @@ var trackpadSettings = []SettingDef{
 		Type:     "float",
 		Provider: provider.NewDefaults("NSGlobalDomain", "com.apple.trackpad.scaling", "float"),
 	},
+	{
+		SpecKey:  "dragging-style",
+		Type:     "string",
+		Provider: provider.NewDraggingStyle(),
+	},
 }

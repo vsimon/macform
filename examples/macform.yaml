@@ -146,6 +146,12 @@ trackpad:
   # Default: 0.875
   tracking-speed: 0.875
 
+  # Description: Dragging style. When set, this will also enable the "Use trackpad for dragging" toggle.
+  # Type: string
+  # Valid values: with-drag-lock | without-drag-lock | three-finger-drag
+  # Default: with-drag-lock
+  dragging-style: without-drag-lock
+
 keyboard:
   # Description: Key repeat rate
   # Type: integer
