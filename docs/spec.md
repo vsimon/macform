@@ -78,7 +78,7 @@ When setting up a new Mac, developers spend significant time manually tweaking S
 
 ### FR-1: Spec file (YAML)
 
-- Top-level keys: `dock`, `finder`, `display`
+- Top-level keys: `dock`, `finder`, `display`, `battery`, `control-center`, `trackpad`, `keyboard`, `hot-corners`
 - Each section contains setting key/value pairs
 - Supported value types: `bool`, `int`, `float`, `string`
 - `null` (or `~`) as a value means "delete this defaults key"
@@ -168,11 +168,11 @@ When setting up a new Mac, developers spend significant time manually tweaking S
 ### FR-10: Settings provider abstraction
 
 - A `Provider` interface abstracts how settings are read/written
-- Initial implementation: `defaults` provider (reads/writes via macOS `defaults` CLI)
-- Future: `osascript` provider for settings not accessible via defaults
+- `defaults` provider: reads/writes via macOS `defaults` CLI; supports a `-currentHost` variant for ByHost-domain settings (e.g. control-center items that are machine-specific)
+- `osascript` provider: GUI scripting for settings not accessible via `defaults` (e.g. display brightness, battery dim)
 - Each setting in the registry declares which provider it uses
 
-### FR-11: Initial settings support
+### FR-11: Settings support
 
 **Dock** (`com.apple.dock`):
 
@@ -186,6 +186,7 @@ When setting up a new Mac, developers spend significant time manually tweaking S
 | magnification | magnification | bool | — |
 | large-size | largesize | int | — |
 | min-effect | mineffect | string | — (`genie`, `scale`, `suck` match macOS UI labels) |
+| scroll-to-open | scroll-to-open | bool | — |
 
 **Finder** (mixed domains):
 
@@ -197,12 +198,62 @@ When setting up a new Mac, developers spend significant time manually tweaking S
 | show-status-bar | ShowStatusBar | com.apple.finder | bool | — |
 | default-view-style | FXPreferredViewStyle | com.apple.finder | string | `icon`→`icnv`, `list`→`Nlsv`, `column`→`clmv`, `gallery`→`Flwv` |
 | warn-on-extension-change | FXEnableExtensionChangeWarning | com.apple.finder | bool | — |
+| new-window-target | NewWindowTarget | com.apple.finder | string | `recents`→`PfAF`, `home`→`PfHm`, `desktop`→`PfDe`, `documents`→`PfDo`, `computer`→`PfCm`, `volumes`→`PfVo`, `icloud-drive`→`PfID` |
 
 **Display** (osascript GUI scripting):
 
 | Spec Key | Provider | Type | macOS Default |
 | --- | --- | --- | --- |
 | auto-brightness | osascript | bool | true |
+
+**Battery** (osascript GUI scripting):
+
+| Spec Key | Provider | Type | macOS Default |
+| --- | --- | --- | --- |
+| slightly-dim-on-battery | osascript | bool | true |
+
+**Control Center** (`com.apple.controlcenter`, written with `-currentHost` where noted):
+
+| Spec Key | Defaults Key | Type | Value Map | Notes |
+| --- | --- | --- | --- | --- |
+| show-battery | Battery | bool (int) | `true`→`18`, `false`→`24` | — |
+| show-battery-percentage | BatteryShowPercentage | bool | — | — |
+| show-bluetooth | Bluetooth | bool (int) | `true`→`18`, `false`→`24` | — |
+| show-sound | Sound | string (int) | `always`→`18`, `when-active`→`2`, `never`→`24` | `-currentHost` |
+| show-spotlight | MenuItemHidden | bool (int) | `true`→`0`, `false`→`1` | domain: `com.apple.Spotlight` |
+| show-wifi | WiFi | bool (int) | `true`→`18`, `false`→`24` | — |
+
+**Trackpad** (dual-domain: `com.apple.AppleMultitouchTrackpad` + `com.apple.driver.AppleBluetoothMultitouch.trackpad`):
+
+| Spec Key | Defaults Key | Type | Value Map |
+| --- | --- | --- | --- |
+| tap-to-click | Clicking | bool | — |
+| tracking-speed | com.apple.trackpad.scaling (NSGlobalDomain) | float | — |
+| dragging-style | Dragging + DragLock + TrackpadThreeFingerDrag | string | `with-drag-lock`, `without-drag-lock`, `three-finger-drag` (compound write) |
+
+**Keyboard** (`NSGlobalDomain` unless noted):
+
+| Spec Key | Defaults Key | Type | Value Map |
+| --- | --- | --- | --- |
+| repeat-rate | KeyRepeat | int | — |
+| repeat-delay | InitialKeyRepeat | int | — |
+| function-keys | com.apple.keyboard.fnState | string | `special`→`0`, `standard`→`1` |
+| function-key-action | AppleFnUsageType (`com.apple.HIToolbox`) | string | `do-nothing`→`0`, `change-input-source`→`1`, `show-emoji`→`2`, `start-dictation`→`3` |
+| auto-capitalize | NSAutomaticCapitalizationEnabled | bool | — |
+| auto-correct | NSAutomaticSpellingCorrectionEnabled | bool | — |
+
+**Hot Corners** (`com.apple.dock`, triggers `killall Dock`):
+
+| Spec Key | Defaults Key | Type | Value Map |
+| --- | --- | --- | --- |
+| top-left | wvous-tl-corner | string | `no-op`→`1`, `mission-control`→`2`, … |
+| top-left-modifier | wvous-tl-modifier | string | `none`→`0`, `shift`→`131072`, … |
+| top-right | wvous-tr-corner | string | (same map as corners) |
+| top-right-modifier | wvous-tr-modifier | string | (same map as modifiers) |
+| bottom-left | wvous-bl-corner | string | (same map as corners) |
+| bottom-left-modifier | wvous-bl-modifier | string | (same map as modifiers) |
+| bottom-right | wvous-br-corner | string | (same map as corners) |
+| bottom-right-modifier | wvous-br-modifier | string | (same map as modifiers) |
 
 ### FR-12: Annotated example spec
 
@@ -244,6 +295,7 @@ dock:
 - **Archives**: `.tar.gz` per platform, plus a `checksums.txt` with SHA-256 digests
 - **Homebrew tap**: GoReleaser auto-updates `vsimon/homebrew-tap` with a generated formula after each release
 - **Version embedding**: Build injects `version`, `commit`, and `date` via `-ldflags` so `macform --version` reports accurate release info
+- **Commit convention**: All commits must follow [Conventional Commits](https://www.conventionalcommits.org/) (`type(scope): description`). This is enforced via a PR title check in CI. Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `build`, `ci`, `revert`
 
 ### FR-14: Exit codes
 
@@ -282,7 +334,7 @@ dock:
 ## Constraints & Assumptions
 
 - **Go only**: No external scripting runtimes required.
-- **mise**: All developer tooling (Go version, GoReleaser) is declared in `.mise.toml`. Contributors run `mise install` to get the exact versions; CI does the same.
+- **mise**: All developer tooling (Go version, GoReleaser) is declared in `mise.toml`. Contributors run `mise install` to get the exact versions; CI does the same.
 - **YAML spec**: Chosen for null-value support and familiarity.
 - **`defaults` CLI**: Used for all initial settings. Assumes macOS ships `defaults` (it always has).
 - **Single user**: Manages settings for the current user only (no `sudo` required for initial settings).
