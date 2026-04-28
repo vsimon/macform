@@ -4,7 +4,7 @@ HK_MISE = 1
 
 [tools]
 go = "1.22"
-goreleaser = "2"
+goreleaser = "2.15.4"
 hk = "1.44.2"
 pkl = "0.31.1"
 
