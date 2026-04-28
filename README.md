@@ -31,4 +31,4 @@ Requires macOS Tahoe or later.
 
 ## Documentation
 
-Full product requirements and design: [docs/PRD.md](docs/PRD.md)
+Full product requirements and design: [docs/spec.md](docs/spec.md)

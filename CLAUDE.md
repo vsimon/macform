@@ -2,7 +2,7 @@
 
 `macform` is a Go CLI tool for declaratively managing macOS system settings via a YAML spec file.
 
-@docs/PRD.md
+@docs/spec.md
 
 ## Working in this codebase
 
