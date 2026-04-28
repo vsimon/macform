@@ -34,4 +34,9 @@ var keyboardSettings = []SettingDef{
 		Type:     "bool",
 		Provider: provider.NewDefaults("NSGlobalDomain", "NSAutomaticCapitalizationEnabled", "bool"),
 	},
+	{
+		SpecKey:  "auto-correct",
+		Type:     "bool",
+		Provider: provider.NewDefaults("NSGlobalDomain", "NSAutomaticSpellingCorrectionEnabled", "bool"),
+	},
 }
