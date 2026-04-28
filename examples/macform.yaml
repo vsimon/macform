@@ -187,6 +187,11 @@ keyboard:
   # Default: true
   auto-correct: true
 
+  # Description: Enable press-and-hold for keys to show accented character options
+  # Type: bool
+  # Default: true
+  press-and-hold: true
+
 hot-corners:
   # Description: Action triggered when the cursor reaches the top-left corner of the screen
   # Type: string

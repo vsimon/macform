@@ -39,4 +39,9 @@ var keyboardSettings = []SettingDef{
 		Type:     "bool",
 		Provider: provider.NewDefaults("NSGlobalDomain", "NSAutomaticSpellingCorrectionEnabled", "bool"),
 	},
+	{
+		SpecKey:  "press-and-hold",
+		Type:     "bool",
+		Provider: provider.NewDefaults("NSGlobalDomain", "ApplePressAndHoldEnabled", "bool"),
+	},
 }
