@@ -182,6 +182,11 @@ keyboard:
   # Default: true
   auto-capitalize: true
 
+  # Description: Automatically correct spelling errors
+  # Type: bool
+  # Default: true
+  auto-correct: true
+
 hot-corners:
   # Description: Action triggered when the cursor reaches the top-left corner of the screen
   # Type: string
