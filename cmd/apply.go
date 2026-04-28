@@ -56,7 +56,7 @@ var applyCmd = &cobra.Command{
 		}
 
 		if len(toApply) == 0 {
-			fmt.Print("No changes. System matches spec.\n")
+			fmt.Print("No changes. macOS configuration is up-to-date.\n")
 			return nil
 		}
 

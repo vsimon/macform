@@ -192,6 +192,11 @@ keyboard:
   # Default: true
   press-and-hold: true
 
+  # Description: Automatically replace double hyphens and other dash sequences with em/en dashes
+  # Type: bool
+  # Default: true
+  smart-dashes: true
+
 hot-corners:
   # Description: Action triggered when the cursor reaches the top-left corner of the screen
   # Type: string

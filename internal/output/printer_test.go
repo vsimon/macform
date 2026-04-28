@@ -24,7 +24,7 @@ func TestPrintPlan_NoChanges(t *testing.T) {
 	p.PrintPlan(entries)
 
 	got := buf.String()
-	want := "No changes. System matches spec.\n"
+	want := "No changes. macOS configuration is up-to-date.\n"
 	if got != want {
 		t.Errorf("expected %q, got %q", want, got)
 	}
@@ -37,7 +37,7 @@ func TestPrintPlan_NoChanges_EmptyEntries(t *testing.T) {
 	p.PrintPlan(nil)
 
 	got := buf.String()
-	want := "No changes. System matches spec.\n"
+	want := "No changes. macOS configuration is up-to-date.\n"
 	if got != want {
 		t.Errorf("expected %q, got %q", want, got)
 	}

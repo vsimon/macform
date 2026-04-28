@@ -44,4 +44,9 @@ var keyboardSettings = []SettingDef{
 		Type:     "bool",
 		Provider: provider.NewDefaults("NSGlobalDomain", "ApplePressAndHoldEnabled", "bool"),
 	},
+	{
+		SpecKey:  "smart-dashes",
+		Type:     "bool",
+		Provider: provider.NewDefaults("NSGlobalDomain", "NSAutomaticDashSubstitutionEnabled", "bool"),
+	},
 }

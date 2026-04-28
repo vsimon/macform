@@ -10,11 +10,12 @@ import (
 )
 
 const (
-	colorCyan   = "\033[1;96m"
-	colorGreen  = "\033[32m"
-	colorYellow = "\033[33m"
-	colorRed    = "\033[31m"
-	colorReset  = "\033[0m"
+	colorCyan      = "\033[1;96m"
+	colorGreen     = "\033[32m"
+	colorBoldGreen = "\033[1;32m"
+	colorYellow    = "\033[33m"
+	colorRed       = "\033[31m"
+	colorReset     = "\033[0m"
 )
 
 // Printer writes plan output to Out, optionally with ANSI color.
@@ -36,7 +37,8 @@ func (p *Printer) PrintPlan(entries []diff.DiffEntry) {
 	}
 
 	if len(changed) == 0 {
-		fmt.Fprintln(p.Out, "No changes. System matches spec.")
+		p.colored(colorBoldGreen, "No changes.")
+		fmt.Fprintln(p.Out, " macOS configuration is up-to-date.")
 		return
 	}
 
