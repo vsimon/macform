@@ -38,4 +38,10 @@ var controlCenterSettings = []SettingDef{
 		Type:     "bool",
 		Provider: provider.NewDefaults("com.apple.controlcenter", "BatteryShowPercentage", "bool"),
 	},
+	{
+		SpecKey:  "clock-show-seconds",
+		Type:     "bool",
+		Provider: provider.NewDefaults("com.apple.menuextra.clock", "ShowSeconds", "int"),
+		ValueMap: map[string]string{"true": "1", "false": "0"},
+	},
 }

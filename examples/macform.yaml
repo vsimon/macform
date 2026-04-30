@@ -134,6 +134,11 @@ control-center:
   # Default: true
   show-wifi: true
 
+  # Description: Show seconds in the menu bar clock
+  # Type: bool
+  # Default: false
+  clock-show-seconds: false
+
 trackpad:
   # Description: Enable tap to click on the trackpad
   # Type: bool
