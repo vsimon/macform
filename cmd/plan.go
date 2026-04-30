@@ -39,7 +39,8 @@ var planCmd = &cobra.Command{
 			return err
 		}
 
-		entries, err := diff.Compute(s, registry.Default)
+		flatSpec, expandedReg := registry.Expand(s)
+		entries, err := diff.Compute(flatSpec, expandedReg)
 		if err != nil {
 			return err
 		}

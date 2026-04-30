@@ -43,7 +43,8 @@ var applyCmd = &cobra.Command{
 			return err
 		}
 
-		entries, err := diff.Compute(s, registry.Default)
+		flatSpec, expandedReg := registry.Expand(s)
+		entries, err := diff.Compute(flatSpec, expandedReg)
 		if err != nil {
 			return err
 		}
@@ -84,7 +85,7 @@ var applyCmd = &cobra.Command{
 
 		var added, changed, removed int
 		for _, e := range toApply {
-			def, ok := registry.Lookup(e.Section, e.SpecKey)
+			def, ok := expandedReg.Lookup(e.Section, e.SpecKey)
 			if !ok {
 				return fmt.Errorf("applying %s.%s: setting not found in registry", e.Section, e.SpecKey)
 			}
@@ -111,7 +112,7 @@ var applyCmd = &cobra.Command{
 
 		seenKill := map[string]bool{}
 		for _, e := range toApply {
-			def, ok := registry.Lookup(e.Section, e.SpecKey)
+			def, ok := expandedReg.Lookup(e.Section, e.SpecKey)
 			if !ok {
 				continue
 			}

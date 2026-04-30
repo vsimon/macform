@@ -111,6 +111,16 @@ func checkType(def *registry.SettingDef, val interface{}) error {
 		default:
 			return fmt.Errorf("expected float, got %T", val)
 		}
+	case "list":
+		list, ok := val.([]interface{})
+		if !ok {
+			return fmt.Errorf("expected list, got %T", val)
+		}
+		for _, item := range list {
+			if _, ok := item.(string); !ok {
+				return fmt.Errorf("list items must be strings, got %T", item)
+			}
+		}
 	case "string":
 		s, ok := val.(string)
 		if !ok {

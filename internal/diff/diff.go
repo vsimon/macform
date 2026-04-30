@@ -18,7 +18,7 @@ type Registry interface {
 type Action int
 
 const (
-	ActionNone   Action = iota
+	ActionNone Action = iota
 	ActionAdd
 	ActionChange
 	ActionDelete
@@ -60,12 +60,14 @@ func Compute(s spec.Spec, reg Registry) ([]DiffEntry, error) {
 			}
 
 			if specVal == nil {
-				entries = append(entries, DiffEntry{
-					Section:    section,
-					SpecKey:    def.SpecKey,
-					Action:     ActionDelete,
-					CurrentVal: currentDecoded,
-				})
+				if found {
+					entries = append(entries, DiffEntry{
+						Section:    section,
+						SpecKey:    def.SpecKey,
+						Action:     ActionDelete,
+						CurrentVal: currentDecoded,
+					})
+				}
 				continue
 			}
 
