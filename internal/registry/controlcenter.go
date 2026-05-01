@@ -44,4 +44,10 @@ var controlCenterSettings = []SettingDef{
 		Provider: provider.NewDefaults("com.apple.menuextra.clock", "ShowSeconds", "int"),
 		ValueMap: map[string]string{"true": "1", "false": "0"},
 	},
+	{
+		SpecKey:  "clock-show-day-of-week",
+		Type:     "bool",
+		Provider: provider.NewDefaults("com.apple.menuextra.clock", "ShowDayOfWeek", "int"),
+		ValueMap: map[string]string{"true": "1", "false": "0"},
+	},
 }
