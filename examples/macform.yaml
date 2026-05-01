@@ -139,6 +139,11 @@ control-center:
   # Default: false
   clock-show-seconds: false
 
+  # Description: Show the day of the week in the menu bar clock
+  # Type: bool
+  # Default: true
+  clock-show-day-of-week: true
+
 trackpad:
   # Description: Enable tap to click on the trackpad
   # Type: bool
@@ -242,7 +247,7 @@ hot-corners:
   # Description: Action triggered when the cursor reaches the bottom-right corner of the screen
   # Type: string
   # Valid values: no-op | mission-control | application-windows | desktop | start-screen-saver | disable-screen-saver | dashboard | put-display-to-sleep | launchpad | notification-center | lock-screen | quick-note
-  # Default: no-op
+  # Default: quick-note
   bottom-right: quick-note
 
   # Description: Modifier key that must be held to trigger the bottom-right corner action
