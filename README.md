@@ -29,6 +29,23 @@ macform apply
 
 Requires macOS Tahoe or later.
 
+## Development
+
+Requires [mise](https://mise.jdx.dev) (`brew install mise`)
+
+Run to get started:
+
+```bash
+mise install
+mise build
+```
+
+Run tests:
+
+```bash
+mise test
+```
+
 ## Documentation
 
 Full product requirements and design: [docs/spec.md](docs/spec.md)
