@@ -49,4 +49,12 @@ var keyboardSettings = []SettingDef{
 		Type:     "bool",
 		Provider: provider.NewDefaults("NSGlobalDomain", "NSAutomaticDashSubstitutionEnabled", "bool"),
 	},
+	{
+		SpecKey:  "keyboard-navigation",
+		Type:     "bool",
+		Provider: provider.NewDefaults("NSGlobalDomain", "AppleKeyboardUIMode", "int"),
+		ValueMap: map[string]string{
+			"true": "2", "false": "0",
+		},
+	},
 }

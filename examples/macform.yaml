@@ -207,6 +207,11 @@ keyboard:
   # Default: true
   smart-dashes: true
 
+  # Description: Move focus between controls using Tab and Shift-Tab
+  # Type: bool
+  # Default: false
+  keyboard-navigation: false
+
 hot-corners:
   # Description: Action triggered when the cursor reaches the top-left corner of the screen
   # Type: string
