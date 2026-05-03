@@ -56,6 +56,9 @@ var generateCmd = &cobra.Command{
 		for _, section := range registry.Sections() {
 			sectionMap := make(map[string]interface{})
 			for _, def := range registry.SectionKeys(section) {
+				if def.Type == "list" {
+					continue
+				}
 				sysVal, found, err := def.Provider.Read()
 				if err != nil {
 					return err

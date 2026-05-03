@@ -3,9 +3,11 @@ package registry
 import "github.com/vsimon/macform/internal/provider"
 
 // SettingDef describes a single managed macOS setting.
+// Scalar settings set Provider; list settings set ProviderFor (a factory called per item).
 type SettingDef struct {
 	SpecKey        string
 	Provider       provider.Provider
+	ProviderFor    func(string) provider.Provider
 	Type           string
 	ValueMap       map[string]string
 	RestartProcess string
@@ -58,6 +60,10 @@ var sections = map[string][]SettingDef{
 		{
 			SpecKey: "scroll-to-open", Type: "bool", RestartProcess: "Dock",
 			Provider: provider.NewDefaults("com.apple.dock", "scroll-to-open", "bool"),
+		},
+		{
+			SpecKey: "remove-apps", Type: "list", RestartProcess: "Dock",
+			ProviderFor: provider.NewDockAppPresence,
 		},
 	},
 	"finder": {
@@ -116,7 +122,69 @@ var sections = map[string][]SettingDef{
 	"hot-corners":    hotCornerSettings,
 }
 
-// Lookup finds a SettingDef by section and spec key.
+// ExpandedRegistry is a flattened registry produced by Expand: list settings are replaced
+// by per-item scalar SettingDefs so that diff and apply need no special-case handling.
+type ExpandedRegistry struct {
+	sections map[string][]SettingDef
+}
+
+func (r *ExpandedRegistry) Sections() []string                      { return Sections() }
+func (r *ExpandedRegistry) SectionKeys(section string) []SettingDef { return r.sections[section] }
+func (r *ExpandedRegistry) Lookup(section, specKey string) (*SettingDef, bool) {
+	for i := range r.sections[section] {
+		if r.sections[section][i].SpecKey == specKey {
+			return &r.sections[section][i], true
+		}
+	}
+	return nil, false
+}
+
+// Expand returns a flat spec and an ExpandedRegistry suitable for passing to diff.Compute.
+// List settings (ProviderFor != nil) are expanded: each item becomes a nil-valued spec entry
+// (triggering ActionDelete) backed by a per-item Provider from ProviderFor.
+// The input map is not modified.
+func Expand(s map[string]map[string]interface{}) (map[string]map[string]interface{}, *ExpandedRegistry) {
+	flatSpec := make(map[string]map[string]interface{})
+	reg := &ExpandedRegistry{sections: make(map[string][]SettingDef)}
+
+	for _, section := range Sections() {
+		sectionSpec, inSpec := s[section]
+		if !inSpec {
+			reg.sections[section] = SectionKeys(section)
+			continue
+		}
+
+		flatSpec[section] = make(map[string]interface{})
+		var defs []SettingDef
+
+		for _, def := range SectionKeys(section) {
+			if def.ProviderFor == nil {
+				if v, ok := sectionSpec[def.SpecKey]; ok {
+					flatSpec[section][def.SpecKey] = v
+				}
+				defs = append(defs, def)
+			} else {
+				items, _ := sectionSpec[def.SpecKey].([]interface{})
+				for _, item := range items {
+					id, _ := item.(string)
+					flatSpec[section][id] = nil
+					defs = append(defs, SettingDef{
+						SpecKey:        id,
+						Type:           "string",
+						RestartProcess: def.RestartProcess,
+						Provider:       def.ProviderFor(id),
+					})
+				}
+			}
+		}
+
+		reg.sections[section] = defs
+	}
+
+	return flatSpec, reg
+}
+
+// Lookup finds a SettingDef by section and spec key in the static registry.
 func Lookup(section, specKey string) (*SettingDef, bool) {
 	defs, ok := sections[section]
 	if !ok {

@@ -52,6 +52,13 @@ dock:
   # Default: false
   scroll-to-open: false
 
+  # Description: Bundle IDs of applications to remove from the Dock. For example:
+  # remove-apps:
+  #   - com.apple.AddressBook
+  #   - com.apple.Maps
+  # Type: list
+  remove-apps: []
+
 finder:
   # Description: Show hidden files and folders (those whose names start with a dot)
   # Type: bool
