@@ -26,7 +26,7 @@ type Printer struct {
 
 // PrintPlan prints the diff entries grouped by section.
 // ActionNone entries are filtered out.
-// If no changes remain, prints "No changes. System matches spec."
+// If no changes remain, prints the no-changes message.
 // Otherwise prints section headers, per-entry lines, and a summary.
 func (p *Printer) PrintPlan(entries []diff.DiffEntry) {
 	var changed []diff.DiffEntry
@@ -85,6 +85,41 @@ func (p *Printer) PrintPlan(entries []diff.DiffEntry) {
 
 	fmt.Fprintln(p.Out)
 	fmt.Fprintf(p.Out, "Plan: %d to add, %d to change, %d to remove.\n", toAdd, toChange, toDelete)
+}
+
+// PrintAudit prints applied changes grouped by section, with process restarts.
+func (p *Printer) PrintAudit(entries []diff.DiffEntry) {
+	bySec := map[string][]diff.DiffEntry{}
+	for _, e := range entries {
+		bySec[e.Section] = append(bySec[e.Section], e)
+	}
+	shownKill := map[string]bool{}
+	fmt.Fprintln(p.Out)
+	for _, section := range registry.Sections() {
+		secEntries, ok := bySec[section]
+		if !ok {
+			continue
+		}
+		p.colored(colorYellow, fmt.Sprintf("  ~ %s\n", section))
+		var kills []string
+		for _, e := range secEntries {
+			switch e.Action {
+			case diff.ActionAdd:
+				p.colored(colorGreen, fmt.Sprintf("      + %s: (not set) -> %s\n", e.SpecKey, e.DesiredVal))
+			case diff.ActionChange:
+				p.colored(colorYellow, fmt.Sprintf("      ~ %s: %s -> %s\n", e.SpecKey, e.CurrentVal, e.DesiredVal))
+			case diff.ActionDelete:
+				p.colored(colorRed, fmt.Sprintf("      - %s: %s -> (deleted)\n", e.SpecKey, e.CurrentVal))
+			}
+			if def, ok := registry.Lookup(e.Section, e.SpecKey); ok && def.RestartProcess != "" && !shownKill[def.RestartProcess] {
+				shownKill[def.RestartProcess] = true
+				kills = append(kills, def.RestartProcess)
+			}
+		}
+		for _, proc := range kills {
+			fmt.Fprintf(p.Out, "      $ killall %s\n", proc)
+		}
+	}
 }
 
 func (p *Printer) colored(color, text string) {

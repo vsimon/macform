@@ -55,12 +55,13 @@ var applyCmd = &cobra.Command{
 			}
 		}
 
+		printer := &output.Printer{NoColor: NoColor, Out: os.Stdout}
+
 		if len(toApply) == 0 {
-			fmt.Print("No changes. macOS configuration is up-to-date.\n")
+			printer.PrintPlan(entries)
 			return nil
 		}
 
-		printer := &output.Printer{NoColor: NoColor, Out: os.Stdout}
 		printer.PrintPlan(entries)
 
 		if !autoApprove {
@@ -87,7 +88,6 @@ var applyCmd = &cobra.Command{
 			if !ok {
 				return fmt.Errorf("applying %s.%s: setting not found in registry", e.Section, e.SpecKey)
 			}
-
 			switch e.Action {
 			case diff.ActionAdd:
 				encoded := registry.Encode(def, e.DesiredVal)
@@ -95,35 +95,33 @@ var applyCmd = &cobra.Command{
 					return fmt.Errorf("applying %s.%s: %w", e.Section, e.SpecKey, err)
 				}
 				added++
-				fmt.Printf("  + %s: (not set) → %s\n", e.SpecKey, e.DesiredVal)
 			case diff.ActionChange:
 				encoded := registry.Encode(def, e.DesiredVal)
 				if err := def.Provider.Write(encoded); err != nil {
 					return fmt.Errorf("applying %s.%s: %w", e.Section, e.SpecKey, err)
 				}
 				changed++
-				fmt.Printf("  ~ %s: %s → %s\n", e.SpecKey, e.CurrentVal, e.DesiredVal)
 			case diff.ActionDelete:
 				if err := def.Provider.Delete(); err != nil {
 					return fmt.Errorf("applying %s.%s: %w", e.Section, e.SpecKey, err)
 				}
 				removed++
-				fmt.Printf("  - %s: %s → (deleted)\n", e.SpecKey, e.CurrentVal)
 			}
 		}
 
-		seen := map[string]bool{}
+		seenKill := map[string]bool{}
 		for _, e := range toApply {
 			def, ok := registry.Lookup(e.Section, e.SpecKey)
 			if !ok {
 				continue
 			}
-			if def.RestartProcess != "" && !seen[def.RestartProcess] {
-				seen[def.RestartProcess] = true
+			if def.RestartProcess != "" && !seenKill[def.RestartProcess] {
+				seenKill[def.RestartProcess] = true
 				exec.Command("killall", def.RestartProcess).Run() //nolint:errcheck
-				fmt.Printf("  $ killall %s\n", def.RestartProcess)
 			}
 		}
+
+		printer.PrintAudit(toApply)
 
 		fmt.Println()
 		if NoColor {
