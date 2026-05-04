@@ -4,6 +4,13 @@
 # valid values, and macOS system default. Copy this file to your project root
 # (or home directory) as macform.yaml and customise to taste.
 
+appearance:
+  # Description: When to show scroll bars
+  # Type: string
+  # Valid values: automatic | when-scrolling | always
+  # Default: automatic
+  show-scroll-bars: automatic
+
 dock:
   # Description: Auto-hide the Dock when the pointer is not near it
   # Type: bool
