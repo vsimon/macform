@@ -22,4 +22,9 @@ var trackpadSettings = []SettingDef{
 		Type:     "string",
 		Provider: provider.NewDraggingStyle(),
 	},
+	{
+		SpecKey:  "natural-scrolling",
+		Type:     "bool",
+		Provider: provider.NewDefaults("NSGlobalDomain", "com.apple.swipescrolldirection", "bool"),
+	},
 }
