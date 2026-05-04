@@ -50,6 +50,11 @@ var keyboardSettings = []SettingDef{
 		Provider: provider.NewDefaults("NSGlobalDomain", "NSAutomaticDashSubstitutionEnabled", "bool"),
 	},
 	{
+		SpecKey:  "double-space-period",
+		Type:     "bool",
+		Provider: provider.NewDefaults("NSGlobalDomain", "NSAutomaticPeriodSubstitutionEnabled", "bool"),
+	},
+	{
 		SpecKey:  "keyboard-navigation",
 		Type:     "bool",
 		Provider: provider.NewDefaults("NSGlobalDomain", "AppleKeyboardUIMode", "int"),
