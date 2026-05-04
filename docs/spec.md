@@ -317,7 +317,7 @@ dock:
 - **Single binary**: No runtime dependencies. Distributed as a compiled Go binary.
 - **Fast**: `plan` should complete in under 2 seconds for a full spec.
 - **Safe**: `plan` is always read-only. `apply` prompts before writing unless `--auto-approve`.
-- **macOS compatibility**: Target macOS 15 (Tahoe) to start. Compatibility with multiple versions is a future goal.
+- **macOS compatibility**: Target macOS 26 (Tahoe) to start. Compatibility with multiple versions is a future goal.
 - **Extensible**: Adding a new provider requires only: (a) implement the `Provider` interface, (b) add entries to the registry with the new provider name.
 
 ## Success Criteria
