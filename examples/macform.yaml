@@ -176,6 +176,11 @@ trackpad:
   # Default: with-drag-lock
   dragging-style: without-drag-lock
 
+  # Description: Scroll direction — content moves in the same direction as fingers (natural) or opposite (traditional)
+  # Type: bool
+  # Default: true
+  natural-scrolling: true
+
 keyboard:
   # Description: Key repeat rate
   # Type: integer
