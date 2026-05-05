@@ -109,6 +109,10 @@ var sections = map[string][]SettingDef{
 			SpecKey: "quit-menu-item", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "QuitMenuItem", "bool"),
 		},
+		{
+			SpecKey: "show-posix-path-in-title", Type: "bool", RestartCommand: killFinder,
+			Provider: provider.NewDefaults("com.apple.finder", "_FXShowPosixPathInTitle", "bool"),
+		},
 	},
 	"display": {
 		{
