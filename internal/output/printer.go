@@ -102,7 +102,7 @@ func (p *Printer) PrintAudit(entries []diff.DiffEntry, notes map[string][]string
 			continue
 		}
 		p.colored(colorYellow, fmt.Sprintf("  ~ %s\n", section))
-		var kills []string
+		var kills [][]string
 		for _, e := range secEntries {
 			switch e.Action {
 			case diff.ActionAdd:
@@ -112,13 +112,16 @@ func (p *Printer) PrintAudit(entries []diff.DiffEntry, notes map[string][]string
 			case diff.ActionDelete:
 				p.colored(colorRed, fmt.Sprintf("      - %s: %s -> (deleted)\n", e.SpecKey, e.CurrentVal))
 			}
-			if def, ok := registry.Lookup(e.Section, e.SpecKey); ok && def.RestartProcess != "" && !shownKill[def.RestartProcess] {
-				shownKill[def.RestartProcess] = true
-				kills = append(kills, def.RestartProcess)
+			if def, ok := registry.Lookup(e.Section, e.SpecKey); ok && len(def.RestartCommand) > 0 {
+				key := strings.Join(def.RestartCommand, " ")
+				if !shownKill[key] {
+					shownKill[key] = true
+					kills = append(kills, def.RestartCommand)
+				}
 			}
 		}
-		for _, proc := range kills {
-			fmt.Fprintf(p.Out, "      $ killall %s\n", proc)
+		for _, cmd := range kills {
+			fmt.Fprintf(p.Out, "      $ %s\n", strings.Join(cmd, " "))
 		}
 	}
 
