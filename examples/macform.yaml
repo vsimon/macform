@@ -75,6 +75,7 @@ dock:
   #   - com.apple.Notes
   #   - com.apple.TV
   #   - com.apple.Music
+  #   - com.apple.games
   #   - com.apple.AppStore
   #   - com.apple.ScreenContinuity
   # Type: list
@@ -117,6 +118,11 @@ finder:
   # Type: bool
   # Default: true
   warn-on-extension-change: true
+
+  # Description: Allow quitting Finder via Cmd+Q, adding Quit to Finder's menu
+  # Type: bool
+  # Default: false
+  quit-menu-item: false
 
 display:
   # Description: Automatically adjust display brightness based on ambient light
