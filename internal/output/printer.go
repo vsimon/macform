@@ -15,6 +15,7 @@ const (
 	colorBoldGreen = "\033[1;32m"
 	colorYellow    = "\033[33m"
 	colorRed       = "\033[31m"
+	colorFaint     = "\033[2m"
 	colorReset     = "\033[0m"
 )
 
@@ -87,8 +88,9 @@ func (p *Printer) PrintPlan(entries []diff.DiffEntry) {
 	fmt.Fprintf(p.Out, "Plan: %d to add, %d to change, %d to remove.\n", toAdd, toChange, toDelete)
 }
 
-// PrintAudit prints applied changes grouped by section, with process restarts.
-func (p *Printer) PrintAudit(entries []diff.DiffEntry) {
+// PrintAudit prints applied changes grouped by section, with process restarts and user notes.
+// notes maps "section/specKey" to a slice of note strings for that setting.
+func (p *Printer) PrintAudit(entries []diff.DiffEntry, notes map[string][]string) {
 	bySec := map[string][]diff.DiffEntry{}
 	for _, e := range entries {
 		bySec[e.Section] = append(bySec[e.Section], e)
@@ -118,6 +120,29 @@ func (p *Printer) PrintAudit(entries []diff.DiffEntry) {
 		}
 		for _, proc := range kills {
 			fmt.Fprintf(p.Out, "      $ killall %s\n", proc)
+		}
+	}
+
+	// Collect and deduplicate notes across all applied entries.
+	seen := map[string]bool{}
+	var allNotes []string
+	for _, e := range entries {
+		key := e.Section + "/" + e.SpecKey
+		for _, note := range notes[key] {
+			if !seen[note] {
+				seen[note] = true
+				allNotes = append(allNotes, note)
+			}
+		}
+	}
+	if len(allNotes) > 0 {
+		fmt.Fprintln(p.Out)
+		for _, note := range allNotes {
+			if strings.HasPrefix(note, "#") {
+				p.colored(colorFaint, fmt.Sprintf("      %s\n", note))
+			} else {
+				fmt.Fprintf(p.Out, "      %s\n", note)
+			}
 		}
 	}
 }

@@ -153,3 +153,66 @@ func TestPrintPlan_Color(t *testing.T) {
 		t.Errorf("expected ANSI reset code, got: %q", got)
 	}
 }
+
+func TestPrintAudit_UserNote_FaintPrefix(t *testing.T) {
+	var buf bytes.Buffer
+	p := &Printer{NoColor: true, Out: &buf}
+
+	entries := []diff.DiffEntry{
+		{
+			Section:    "keyboard",
+			SpecKey:    "function-keys",
+			Action:     diff.ActionChange,
+			CurrentVal: "special",
+			DesiredVal: "standard",
+		},
+	}
+
+	p.PrintAudit(entries, map[string][]string{
+		"keyboard/function-keys": {"# function-keys requires logout or restart to take full effect"},
+	})
+
+	out := buf.String()
+	if !strings.Contains(out, "# function-keys requires logout or restart to take full effect") {
+		t.Errorf("expected note in output, got:\n%s", out)
+	}
+}
+
+func TestPrintAudit_UserNote_Deduplicated(t *testing.T) {
+	var buf bytes.Buffer
+	p := &Printer{NoColor: true, Out: &buf}
+
+	entries := []diff.DiffEntry{
+		{Section: "keyboard", SpecKey: "function-keys", Action: diff.ActionChange, CurrentVal: "special", DesiredVal: "standard"},
+		{Section: "keyboard", SpecKey: "auto-correct", Action: diff.ActionChange, CurrentVal: "true", DesiredVal: "false"},
+	}
+
+	notes := map[string][]string{
+		"keyboard/function-keys": {"# requires logout or restart to take full effect"},
+		"keyboard/auto-correct":  {"# requires logout or restart to take full effect"},
+	}
+
+	p.PrintAudit(entries, notes)
+
+	out := buf.String()
+	count := strings.Count(out, "# requires logout or restart to take full effect")
+	if count != 1 {
+		t.Errorf("expected note once, got %d times in:\n%s", count, out)
+	}
+}
+
+func TestPrintAudit_NoNotes_NoOutput(t *testing.T) {
+	var buf bytes.Buffer
+	p := &Printer{NoColor: true, Out: &buf}
+
+	entries := []diff.DiffEntry{
+		{Section: "dock", SpecKey: "autohide", Action: diff.ActionChange, CurrentVal: "false", DesiredVal: "true"},
+	}
+
+	p.PrintAudit(entries, nil)
+
+	out := buf.String()
+	if strings.Contains(out, "#") {
+		t.Errorf("expected no notes in output, got:\n%s", out)
+	}
+}
