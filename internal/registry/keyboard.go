@@ -31,11 +31,13 @@ var keyboardSettings = []SettingDef{
 		ValueMap: map[string]string{
 			"do-nothing": "0", "change-input-source": "1", "show-emoji": "2", "start-dictation": "3",
 		},
+		UserNote: []string{"# function-key-action requires logout or restart to take full effect"},
 	},
 	{
 		SpecKey:  "auto-capitalize",
 		Type:     "bool",
 		Provider: provider.NewDefaults("NSGlobalDomain", "NSAutomaticCapitalizationEnabled", "bool"),
+		UserNote: []string{"# auto-capitalize requires logout or restart to take full effect"},
 	},
 	{
 		SpecKey:  "auto-correct",

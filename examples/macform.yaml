@@ -61,8 +61,22 @@ dock:
 
   # Description: Bundle IDs of applications to remove from the Dock. For example:
   # remove-apps:
-  #   - com.apple.AddressBook
+  #   - com.apple.apps.launcher
+  #   - com.apple.Safari
+  #   - com.apple.MobileSMS
+  #   - com.apple.mail
   #   - com.apple.Maps
+  #   - com.apple.Photos
+  #   - com.apple.FaceTime
+  #   - com.apple.mobilephone
+  #   - com.apple.iCal
+  #   - com.apple.AddressBook
+  #   - com.apple.reminders
+  #   - com.apple.Notes
+  #   - com.apple.TV
+  #   - com.apple.Music
+  #   - com.apple.AppStore
+  #   - com.apple.ScreenContinuity
   # Type: list
   remove-apps: []
 
