@@ -102,6 +102,10 @@ var sections = map[string][]SettingDef{
 				"recents": "PfAF", "home": "PfHm", "desktop": "PfDe", "documents": "PfDo", "computer": "PfCm", "volumes": "PfVo", "icloud-drive": "PfID",
 			},
 		},
+		{
+			SpecKey: "quit-menu-item", Type: "bool", RestartProcess: "Finder",
+			Provider: provider.NewDefaults("com.apple.finder", "QuitMenuItem", "bool"),
+		},
 	},
 	"display": {
 		{
