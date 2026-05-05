@@ -129,6 +129,11 @@ finder:
   # Default: false
   show-posix-path-in-title: false
 
+  # Description: Keep folders on top when sorting by name in Finder windows
+  # Type: bool
+  # Default: false
+  sort-folders-first: false
+
 display:
   # Description: Automatically adjust display brightness based on ambient light
   # Type: bool

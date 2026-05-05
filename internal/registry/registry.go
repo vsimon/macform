@@ -113,6 +113,10 @@ var sections = map[string][]SettingDef{
 			SpecKey: "show-posix-path-in-title", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "_FXShowPosixPathInTitle", "bool"),
 		},
+		{
+			SpecKey: "sort-folders-first", Type: "bool", RestartCommand: killFinder,
+			Provider: provider.NewDefaults("com.apple.finder", "_FXSortFoldersFirst", "bool"),
+		},
 	},
 	"display": {
 		{
