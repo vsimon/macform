@@ -159,6 +159,16 @@ finder:
   # Default: true
   desktop-show-removable-media: true
 
+  # Description: Prevent Finder from creating .DS_Store files on network volumes
+  # Type: bool
+  # Default: false
+  no-ds-store-on-network: false
+
+  # Description: Prevent Finder from creating .DS_Store files on USB volumes
+  # Type: bool
+  # Default: false
+  no-ds-store-on-usb: false
+
 display:
   # Description: Automatically adjust display brightness based on ambient light
   # Type: bool

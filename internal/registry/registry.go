@@ -137,6 +137,14 @@ var sections = map[string][]SettingDef{
 			SpecKey: "desktop-show-removable-media", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "ShowRemovableMediaOnDesktop", "bool"),
 		},
+		{
+			SpecKey: "no-ds-store-on-network", Type: "bool", RestartCommand: killFinder,
+			Provider: provider.NewDefaults("com.apple.desktopservices", "DSDontWriteNetworkStores", "bool"),
+		},
+		{
+			SpecKey: "no-ds-store-on-usb", Type: "bool", RestartCommand: killFinder,
+			Provider: provider.NewDefaults("com.apple.desktopservices", "DSDontWriteUSBStores", "bool"),
+		},
 	},
 	"display": {
 		{
