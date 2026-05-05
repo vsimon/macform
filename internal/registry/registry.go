@@ -117,6 +117,10 @@ var sections = map[string][]SettingDef{
 			SpecKey: "sort-folders-first", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "_FXSortFoldersFirst", "bool"),
 		},
+		{
+			SpecKey: "quick-look-text-selection", Type: "bool", RestartCommand: killFinder,
+			Provider: provider.NewDefaults("com.apple.finder", "QLEnableTextSelection", "bool"),
+		},
 	},
 	"display": {
 		{

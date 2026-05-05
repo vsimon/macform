@@ -134,6 +134,11 @@ finder:
   # Default: false
   sort-folders-first: false
 
+  # Description: Allow selecting and copying text in Quick Look previews
+  # Type: bool
+  # Default: false
+  quick-look-text-selection: false
+
 display:
   # Description: Automatically adjust display brightness based on ambient light
   # Type: bool
