@@ -90,6 +90,7 @@ func (p *Printer) PrintPlan(entries []diff.DiffEntry) {
 
 // PrintAudit prints applied changes grouped by section, with process restarts and user notes.
 // notes maps "section/specKey" to a slice of note strings for that setting.
+// Notes with a "#" prefix are rendered faint; all other notes are rendered at default color.
 func (p *Printer) PrintAudit(entries []diff.DiffEntry, notes map[string][]string) {
 	bySec := map[string][]diff.DiffEntry{}
 	for _, e := range entries {
