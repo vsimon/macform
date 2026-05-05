@@ -18,7 +18,7 @@ var keyboardSettings = []SettingDef{
 		Type:     "string",
 		Provider: provider.NewDefaults("NSGlobalDomain", "com.apple.keyboard.fnState", "bool"),
 		ValueMap: map[string]string{
-			"special": "0", "standard": "1",
+			"special": "false", "standard": "true",
 		},
 	},
 	{
