@@ -145,6 +145,14 @@ var sections = map[string][]SettingDef{
 			SpecKey: "no-ds-store-on-usb", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.desktopservices", "DSDontWriteUSBStores", "bool"),
 		},
+		{
+			SpecKey: "auto-open-ro-volumes", Type: "bool", RestartCommand: killFinder,
+			Provider: provider.NewDefaults("com.apple.frameworks.diskimages", "auto-open-ro-root", "bool"),
+		},
+		{
+			SpecKey: "auto-open-rw-volumes", Type: "bool", RestartCommand: killFinder,
+			Provider: provider.NewDefaults("com.apple.frameworks.diskimages", "auto-open-rw-root", "bool"),
+		},
 	},
 	"display": {
 		{

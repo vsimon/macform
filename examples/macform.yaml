@@ -169,6 +169,16 @@ finder:
   # Default: false
   no-ds-store-on-usb: false
 
+  # Description: Automatically open a Finder window when a read-only disk image is mounted
+  # Type: bool
+  # Default: false
+  auto-open-ro-volumes: false
+
+  # Description: Automatically open a Finder window when a read-write disk image is mounted
+  # Type: bool
+  # Default: false
+  auto-open-rw-volumes: false
+
 display:
   # Description: Automatically adjust display brightness based on ambient light
   # Type: bool
