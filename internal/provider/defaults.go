@@ -66,7 +66,16 @@ func (d *defaultsProvider) Read() (string, bool, error) {
 		}
 		return "", false, fmt.Errorf("defaults read %s %s: %w", d.domain, d.key, err)
 	}
-	return strings.TrimRight(string(out), "\n"), true, nil
+	val := strings.TrimRight(string(out), "\n")
+	if d.typ == "bool" {
+		switch val {
+		case "0":
+			val = "false"
+		case "1":
+			val = "true"
+		}
+	}
+	return val, true, nil
 }
 
 func (d *defaultsProvider) Write(value string) error {

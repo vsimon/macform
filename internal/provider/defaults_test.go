@@ -4,6 +4,29 @@ import (
 	"testing"
 )
 
+func TestDefaults_Read_NormalizesBoolInts(t *testing.T) {
+	for _, tc := range []struct{ raw, want string }{
+		{"0\n", "false"},
+		{"1\n", "true"},
+		{"false\n", "false"},
+		{"true\n", "true"},
+	} {
+		orig := defaultsRunner
+		raw := tc.raw
+		defaultsRunner = func(args ...string) ([]byte, error) { return []byte(raw), nil }
+		t.Cleanup(func() { defaultsRunner = orig })
+
+		p := NewDefaults("NSGlobalDomain", "TestKey", "bool")
+		val, _, err := p.Read()
+		if err != nil {
+			t.Fatalf("raw=%q: Read failed: %v", tc.raw, err)
+		}
+		if val != tc.want {
+			t.Errorf("raw=%q: got %q, want %q", tc.raw, val, tc.want)
+		}
+	}
+}
+
 func TestMultiDefaults_Read_UsesPrimaryDomain(t *testing.T) {
 	orig := defaultsRunner
 	defaultsRunner = func(args ...string) ([]byte, error) {
