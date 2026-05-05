@@ -122,7 +122,15 @@ var applyCmd = &cobra.Command{
 			}
 		}
 
-		printer.PrintAudit(toApply)
+		notes := map[string][]string{}
+		for _, e := range toApply {
+			if def, ok := expandedReg.Lookup(e.Section, e.SpecKey); ok {
+				if len(def.UserNote) > 0 {
+					notes[e.Section+"/"+e.SpecKey] = def.UserNote
+				}
+			}
+		}
+		printer.PrintAudit(toApply, notes)
 
 		fmt.Println()
 		if NoColor {

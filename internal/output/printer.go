@@ -15,7 +15,6 @@ const (
 	colorBoldGreen = "\033[1;32m"
 	colorYellow    = "\033[33m"
 	colorRed       = "\033[31m"
-	colorFaint     = "\033[2m"
 	colorReset     = "\033[0m"
 )
 
@@ -90,7 +89,6 @@ func (p *Printer) PrintPlan(entries []diff.DiffEntry) {
 
 // PrintAudit prints applied changes grouped by section, with process restarts and user notes.
 // notes maps "section/specKey" to a slice of note strings for that setting.
-// Notes with a "#" prefix are rendered faint; all other notes are rendered at default color.
 func (p *Printer) PrintAudit(entries []diff.DiffEntry, notes map[string][]string) {
 	bySec := map[string][]diff.DiffEntry{}
 	for _, e := range entries {
@@ -139,11 +137,7 @@ func (p *Printer) PrintAudit(entries []diff.DiffEntry, notes map[string][]string
 	if len(allNotes) > 0 {
 		fmt.Fprintln(p.Out)
 		for _, note := range allNotes {
-			if strings.HasPrefix(note, "#") {
-				p.colored(colorFaint, fmt.Sprintf("      %s\n", note))
-			} else {
-				fmt.Fprintf(p.Out, "      %s\n", note)
-			}
+			fmt.Fprintln(p.Out, note)
 		}
 	}
 }

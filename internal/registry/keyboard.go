@@ -7,11 +7,13 @@ var keyboardSettings = []SettingDef{
 		SpecKey:  "repeat-rate",
 		Type:     "int",
 		Provider: provider.NewDefaults("NSGlobalDomain", "KeyRepeat", "int"),
+		UserNote: []string{"# repeat-rate requires logout or restart to take full effect"},
 	},
 	{
 		SpecKey:  "repeat-delay",
 		Type:     "int",
 		Provider: provider.NewDefaults("NSGlobalDomain", "InitialKeyRepeat", "int"),
+		UserNote: []string{"# repeat-delay requires logout or restart to take full effect"},
 	},
 	{
 		SpecKey:  "function-keys",
