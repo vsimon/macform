@@ -27,42 +27,42 @@ var hotCornerModifierMap = map[string]string{
 
 var hotCornerSettings = []SettingDef{
 	{
-		SpecKey: "top-left", Type: "string", RestartProcess: "Dock",
+		SpecKey: "top-left", Type: "string", RestartCommand: killDock,
 		Provider: provider.NewDefaults("com.apple.dock", "wvous-tl-corner", "int"),
 		ValueMap: hotCornerActionMap,
 	},
 	{
-		SpecKey: "top-left-modifier", Type: "string", RestartProcess: "Dock",
+		SpecKey: "top-left-modifier", Type: "string", RestartCommand: killDock,
 		Provider: provider.NewDefaults("com.apple.dock", "wvous-tl-modifier", "int"),
 		ValueMap: hotCornerModifierMap,
 	},
 	{
-		SpecKey: "top-right", Type: "string", RestartProcess: "Dock",
+		SpecKey: "top-right", Type: "string", RestartCommand: killDock,
 		Provider: provider.NewDefaults("com.apple.dock", "wvous-tr-corner", "int"),
 		ValueMap: hotCornerActionMap,
 	},
 	{
-		SpecKey: "top-right-modifier", Type: "string", RestartProcess: "Dock",
+		SpecKey: "top-right-modifier", Type: "string", RestartCommand: killDock,
 		Provider: provider.NewDefaults("com.apple.dock", "wvous-tr-modifier", "int"),
 		ValueMap: hotCornerModifierMap,
 	},
 	{
-		SpecKey: "bottom-left", Type: "string", RestartProcess: "Dock",
+		SpecKey: "bottom-left", Type: "string", RestartCommand: killDock,
 		Provider: provider.NewDefaults("com.apple.dock", "wvous-bl-corner", "int"),
 		ValueMap: hotCornerActionMap,
 	},
 	{
-		SpecKey: "bottom-left-modifier", Type: "string", RestartProcess: "Dock",
+		SpecKey: "bottom-left-modifier", Type: "string", RestartCommand: killDock,
 		Provider: provider.NewDefaults("com.apple.dock", "wvous-bl-modifier", "int"),
 		ValueMap: hotCornerModifierMap,
 	},
 	{
-		SpecKey: "bottom-right", Type: "string", RestartProcess: "Dock",
+		SpecKey: "bottom-right", Type: "string", RestartCommand: killDock,
 		Provider: provider.NewDefaults("com.apple.dock", "wvous-br-corner", "int"),
 		ValueMap: hotCornerActionMap,
 	},
 	{
-		SpecKey: "bottom-right-modifier", Type: "string", RestartProcess: "Dock",
+		SpecKey: "bottom-right-modifier", Type: "string", RestartCommand: killDock,
 		Provider: provider.NewDefaults("com.apple.dock", "wvous-br-modifier", "int"),
 		ValueMap: hotCornerModifierMap,
 	},

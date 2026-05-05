@@ -116,9 +116,12 @@ var applyCmd = &cobra.Command{
 			if !ok {
 				continue
 			}
-			if def.RestartProcess != "" && !seenKill[def.RestartProcess] {
-				seenKill[def.RestartProcess] = true
-				exec.Command("killall", def.RestartProcess).Run() //nolint:errcheck
+			if len(def.RestartCommand) > 0 {
+				key := strings.Join(def.RestartCommand, " ")
+				if !seenKill[key] {
+					seenKill[key] = true
+					exec.Command(def.RestartCommand[0], def.RestartCommand[1:]...).Run() //nolint:errcheck
+				}
 			}
 		}
 

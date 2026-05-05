@@ -10,7 +10,7 @@ type SettingDef struct {
 	ProviderFor    func(string) provider.Provider
 	Type           string
 	ValueMap       map[string]string
-	RestartProcess string
+	RestartCommand []string // command to run after applying, e.g. {"killall","Dock"}
 	UserNote       []string
 }
 
@@ -23,87 +23,90 @@ var Default defaultRegistry
 func (defaultRegistry) Sections() []string                { return Sections() }
 func (defaultRegistry) SectionKeys(s string) []SettingDef { return SectionKeys(s) }
 
+var killDock = []string{"killall", "Dock"}
+var killFinder = []string{"killall", "Finder"}
+
 // sections holds all registered settings in deterministic order.
 var sections = map[string][]SettingDef{
 	"dock": {
 		{
-			SpecKey: "autohide", Type: "bool", RestartProcess: "Dock",
+			SpecKey: "autohide", Type: "bool", RestartCommand: killDock,
 			Provider: provider.NewDefaults("com.apple.dock", "autohide", "bool"),
 		},
 		{
-			SpecKey: "tile-size", Type: "int", RestartProcess: "Dock",
+			SpecKey: "tile-size", Type: "int", RestartCommand: killDock,
 			Provider: provider.NewDefaults("com.apple.dock", "tilesize", "int"),
 		},
 		{
-			SpecKey: "orientation", Type: "string", RestartProcess: "Dock",
+			SpecKey: "orientation", Type: "string", RestartCommand: killDock,
 			Provider: provider.NewDefaults("com.apple.dock", "orientation", "string"),
 		},
 		{
-			SpecKey: "minimize-to-application", Type: "bool", RestartProcess: "Dock",
+			SpecKey: "minimize-to-application", Type: "bool", RestartCommand: killDock,
 			Provider: provider.NewDefaults("com.apple.dock", "minimize-to-application", "bool"),
 		},
 		{
-			SpecKey: "show-recents", Type: "bool", RestartProcess: "Dock",
+			SpecKey: "show-recents", Type: "bool", RestartCommand: killDock,
 			Provider: provider.NewDefaults("com.apple.dock", "show-recents", "bool"),
 		},
 		{
-			SpecKey: "magnification", Type: "bool", RestartProcess: "Dock",
+			SpecKey: "magnification", Type: "bool", RestartCommand: killDock,
 			Provider: provider.NewDefaults("com.apple.dock", "magnification", "bool"),
 		},
 		{
-			SpecKey: "large-size", Type: "int", RestartProcess: "Dock",
+			SpecKey: "large-size", Type: "int", RestartCommand: killDock,
 			Provider: provider.NewDefaults("com.apple.dock", "largesize", "int"),
 		},
 		{
-			SpecKey: "min-effect", Type: "string", RestartProcess: "Dock",
+			SpecKey: "min-effect", Type: "string", RestartCommand: killDock,
 			Provider: provider.NewDefaults("com.apple.dock", "mineffect", "string"),
 		},
 		{
-			SpecKey: "scroll-to-open", Type: "bool", RestartProcess: "Dock",
+			SpecKey: "scroll-to-open", Type: "bool", RestartCommand: killDock,
 			Provider: provider.NewDefaults("com.apple.dock", "scroll-to-open", "bool"),
 		},
 		{
-			SpecKey: "remove-apps", Type: "list", RestartProcess: "Dock",
+			SpecKey: "remove-apps", Type: "list", RestartCommand: killDock,
 			ProviderFor: provider.NewDockAppPresence,
 		},
 	},
 	"finder": {
 		{
-			SpecKey: "show-hidden-files", Type: "bool", RestartProcess: "Finder",
+			SpecKey: "show-hidden-files", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "AppleShowAllFiles", "bool"),
 		},
 		{
-			SpecKey: "show-extensions", Type: "bool", RestartProcess: "Finder",
+			SpecKey: "show-extensions", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("NSGlobalDomain", "AppleShowAllExtensions", "bool"),
 		},
 		{
-			SpecKey: "show-path-bar", Type: "bool", RestartProcess: "Finder",
+			SpecKey: "show-path-bar", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "ShowPathbar", "bool"),
 		},
 		{
-			SpecKey: "show-status-bar", Type: "bool", RestartProcess: "Finder",
+			SpecKey: "show-status-bar", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "ShowStatusBar", "bool"),
 		},
 		{
-			SpecKey: "default-view-style", Type: "string", RestartProcess: "Finder",
+			SpecKey: "default-view-style", Type: "string", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "FXPreferredViewStyle", "string"),
 			ValueMap: map[string]string{
 				"icon": "icnv", "list": "Nlsv", "column": "clmv", "gallery": "Flwv",
 			},
 		},
 		{
-			SpecKey: "warn-on-extension-change", Type: "bool", RestartProcess: "Finder",
+			SpecKey: "warn-on-extension-change", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "FXEnableExtensionChangeWarning", "bool"),
 		},
 		{
-			SpecKey: "new-window-target", Type: "string", RestartProcess: "Finder",
+			SpecKey: "new-window-target", Type: "string", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "NewWindowTarget", "string"),
 			ValueMap: map[string]string{
 				"recents": "PfAF", "home": "PfHm", "desktop": "PfDe", "documents": "PfDo", "computer": "PfCm", "volumes": "PfVo", "icloud-drive": "PfID",
 			},
 		},
 		{
-			SpecKey: "quit-menu-item", Type: "bool", RestartProcess: "Finder",
+			SpecKey: "quit-menu-item", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "QuitMenuItem", "bool"),
 		},
 	},
@@ -177,7 +180,7 @@ func Expand(s map[string]map[string]interface{}) (map[string]map[string]interfac
 					defs = append(defs, SettingDef{
 						SpecKey:        id,
 						Type:           "string",
-						RestartProcess: def.RestartProcess,
+						RestartCommand: def.RestartCommand,
 						UserNote:       def.UserNote,
 						Provider:       def.ProviderFor(id),
 					})
