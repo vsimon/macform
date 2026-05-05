@@ -11,16 +11,19 @@ var trackpadSettings = []SettingDef{
 			[]string{"com.apple.driver.AppleBluetoothMultitouch.trackpad"},
 			"Clicking", "bool",
 		),
+		UserNote: []string{"# tap-to-click requires logout or restart to take full effect"},
 	},
 	{
 		SpecKey:  "tracking-speed",
 		Type:     "float",
 		Provider: provider.NewDefaults("NSGlobalDomain", "com.apple.trackpad.scaling", "float"),
+		UserNote: []string{"# tracking-speed requires logout or restart to take full effect"},
 	},
 	{
 		SpecKey:  "dragging-style",
 		Type:     "string",
 		Provider: provider.NewDraggingStyle(),
+		UserNote: []string{"# dragging-style requires logout or restart to take full effect"},
 	},
 	{
 		SpecKey:  "natural-scrolling",
