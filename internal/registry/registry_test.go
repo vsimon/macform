@@ -148,3 +148,13 @@ func TestSectionsIncludesKeyboard(t *testing.T) {
 	}
 	t.Error("keyboard not in Sections()")
 }
+
+func TestSettingDef_UserNote_Preserved(t *testing.T) {
+	def, ok := Lookup("keyboard", "function-keys")
+	if !ok {
+		t.Fatal("expected to find keyboard/function-keys")
+	}
+	if len(def.UserNote) == 0 {
+		t.Error("expected UserNote to be non-empty for function-keys")
+	}
+}
