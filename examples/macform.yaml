@@ -139,6 +139,26 @@ finder:
   # Default: false
   quick-look-text-selection: false
 
+  # Description: Show external hard drives on the desktop
+  # Type: bool
+  # Default: true
+  desktop-show-external-drives: true
+
+  # Description: Show internal hard drives on the desktop
+  # Type: bool
+  # Default: false
+  desktop-show-hard-drives: false
+
+  # Description: Show mounted network servers on the desktop
+  # Type: bool
+  # Default: false
+  desktop-show-servers: false
+
+  # Description: Show removable media (USB drives, DVDs) on the desktop
+  # Type: bool
+  # Default: true
+  desktop-show-removable-media: true
+
 display:
   # Description: Automatically adjust display brightness based on ambient light
   # Type: bool

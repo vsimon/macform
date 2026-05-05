@@ -121,6 +121,22 @@ var sections = map[string][]SettingDef{
 			SpecKey: "quick-look-text-selection", Type: "bool", RestartCommand: killFinder,
 			Provider: provider.NewDefaults("com.apple.finder", "QLEnableTextSelection", "bool"),
 		},
+		{
+			SpecKey: "desktop-show-external-drives", Type: "bool", RestartCommand: killFinder,
+			Provider: provider.NewDefaults("com.apple.finder", "ShowExternalHardDrivesOnDesktop", "bool"),
+		},
+		{
+			SpecKey: "desktop-show-hard-drives", Type: "bool", RestartCommand: killFinder,
+			Provider: provider.NewDefaults("com.apple.finder", "ShowHardDrivesOnDesktop", "bool"),
+		},
+		{
+			SpecKey: "desktop-show-servers", Type: "bool", RestartCommand: killFinder,
+			Provider: provider.NewDefaults("com.apple.finder", "ShowMountedServersOnDesktop", "bool"),
+		},
+		{
+			SpecKey: "desktop-show-removable-media", Type: "bool", RestartCommand: killFinder,
+			Provider: provider.NewDefaults("com.apple.finder", "ShowRemovableMediaOnDesktop", "bool"),
+		},
 	},
 	"display": {
 		{
