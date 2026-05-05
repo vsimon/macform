@@ -20,6 +20,7 @@ var keyboardSettings = []SettingDef{
 		ValueMap: map[string]string{
 			"special": "false", "standard": "true",
 		},
+		UserNote: []string{"# function-keys requires logout or restart to take full effect"},
 	},
 	{
 		SpecKey:  "function-key-action",

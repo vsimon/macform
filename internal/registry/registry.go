@@ -11,6 +11,7 @@ type SettingDef struct {
 	Type           string
 	ValueMap       map[string]string
 	RestartProcess string
+	UserNote       []string
 }
 
 // defaultRegistry implements the Registry interface used by the diff package.
@@ -173,6 +174,7 @@ func Expand(s map[string]map[string]interface{}) (map[string]map[string]interfac
 						SpecKey:        id,
 						Type:           "string",
 						RestartProcess: def.RestartProcess,
+						UserNote:       def.UserNote,
 						Provider:       def.ProviderFor(id),
 					})
 				}
