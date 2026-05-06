@@ -2,6 +2,8 @@
 
 Declarative macOS system settings - define your preferences in YAML and apply them anywhere.
 
+![demo](./assets/demo.gif)
+
 ## Install
 
 ```
