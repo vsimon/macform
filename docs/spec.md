@@ -59,7 +59,7 @@ When setting up a new Mac, developers spend significant time manually tweaking S
 **Acceptance criteria:**
 
 - A Homebrew tap exists and is kept current with each release
-- `brew install --cask vsimon/tap/macform` installs the correct binary for the running arch (arm64 or amd64)
+- `brew install --cask vsimon/tap/macform` installs the correct binary for the running arch (arm64)
 - The installed binary passes `macform --version`
 
 ### US-5: Discover available settings
@@ -291,7 +291,7 @@ dock:
 - **CI**: GitHub Actions installs mise, then uses it to activate Go and GoReleaser; runs `go build`, `go vet`, `go test ./...` on every push
 - **Release trigger**: Pushing a semver tag (`v*.*.*`) kicks off the release workflow
 - **Tool**: GoReleaser handles cross-compilation, archive creation, checksum generation, and GitHub Release publication
-- **Targets**: `darwin/amd64` (Intel) and `darwin/arm64` (Apple Silicon); no other platforms
+- **Targets**: `darwin/arm64` (Apple Silicon); no other platforms
 - **Archives**: `.tar.gz` per platform, plus a `checksums.txt` with SHA-256 digests
 - **Homebrew tap**: GoReleaser auto-updates `vsimon/homebrew-tap` with a generated formula after each release
 - **Version embedding**: Build injects `version`, `commit`, and `date` via `-ldflags` so `macform --version` reports accurate release info
@@ -328,7 +328,7 @@ dock:
 4. `apply --auto-approve` changes all differing settings and restarts affected apps.
 5. After `apply`, running `plan` again shows "No changes."
 6. `go build` succeeds with no warnings.
-7. Pushing a `v*.*.*` tag triggers CI, produces GitHub Release with arm64 + amd64 archives, and updates the Homebrew formula.
+7. Pushing a `v*.*.*` tag triggers CI, produces GitHub Release with arm64 archives, and updates the Homebrew formula.
 8. `brew install vsimon/tap/macform` installs a working binary on a clean Mac.
 
 ## Constraints & Assumptions
