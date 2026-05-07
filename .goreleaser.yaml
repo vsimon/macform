@@ -42,3 +42,15 @@ homebrew_casks:
       name: goreleaserbot
       email: bot@goreleaser.com
     commit_msg_template: "Brew cask update for {{ .ProjectName }} version {{ .Tag }}"
+
+signs:
+  - artifacts: binary
+    cmd: bash
+    args:
+      - scripts/release/sign-and-notarize.sh
+      - "${artifact}"
+    env:
+      - APPLE_SIGNING_IDENTITY={{ .Env.APPLE_SIGNING_IDENTITY }}
+      - APPLE_API_KEY={{ .Env.APPLE_API_KEY }}
+      - APPLE_API_KEY_ID={{ .Env.APPLE_API_KEY_ID }}
+      - APPLE_API_ISSUER={{ .Env.APPLE_API_ISSUER }}
