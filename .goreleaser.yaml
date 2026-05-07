@@ -29,6 +29,19 @@ checksum:
   name_template: checksums.txt
   algorithm: sha256
 
+notarize:
+  macos:
+    - enabled: '{{ isEnvSet "MACOS_SIGN_P12" }}'
+      sign:
+        certificate: "{{.Env.MACOS_SIGN_P12}}"
+        password: "{{.Env.MACOS_SIGN_PASSWORD}}"
+      notarize:
+        issuer_id: "{{.Env.MACOS_NOTARY_ISSUER_ID}}"
+        key_id: "{{.Env.MACOS_NOTARY_KEY_ID}}"
+        key: "{{.Env.MACOS_NOTARY_KEY}}"
+        wait: true
+        timeout: 20m
+
 homebrew_casks:
   - name: macform
     repository:
@@ -42,15 +55,3 @@ homebrew_casks:
       name: goreleaserbot
       email: bot@goreleaser.com
     commit_msg_template: "Brew cask update for {{ .ProjectName }} version {{ .Tag }}"
-
-signs:
-  - artifacts: binary
-    cmd: bash
-    args:
-      - scripts/release/sign-and-notarize.sh
-      - "${artifact}"
-    env:
-      - APPLE_SIGNING_IDENTITY={{ .Env.APPLE_SIGNING_IDENTITY }}
-      - APPLE_API_KEY={{ .Env.APPLE_API_KEY }}
-      - APPLE_API_KEY_ID={{ .Env.APPLE_API_KEY_ID }}
-      - APPLE_API_ISSUER={{ .Env.APPLE_API_ISSUER }}
