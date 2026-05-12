@@ -66,6 +66,10 @@ var sections = map[string][]SettingDef{
 			Provider: provider.NewDefaults("com.apple.dock", "scroll-to-open", "bool"),
 		},
 		{
+			SpecKey: "animate-opening-applications", Type: "bool", RestartCommand: killDock,
+			Provider: provider.NewDefaults("com.apple.dock", "launchanim", "bool"),
+		},
+		{
 			SpecKey: "remove-apps", Type: "list", RestartCommand: killDock,
 			ProviderFor: provider.NewDockAppPresence,
 		},

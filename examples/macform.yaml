@@ -59,6 +59,11 @@ dock:
   # Default: false
   scroll-to-open: false
 
+  # Description: Animate application icons in the Dock when opening them
+  # Type: bool
+  # Default: true
+  animate-opening-applications: true
+
   # Description: Bundle IDs of applications to remove from the Dock. For example:
   # remove-apps:
   #   - com.apple.apps.launcher

@@ -69,6 +69,7 @@ func TestAllDockSettingsRegistered(t *testing.T) {
 	expected := []string{
 		"autohide", "tile-size", "orientation", "minimize-to-application",
 		"show-recents", "magnification", "large-size", "min-effect", "scroll-to-open",
+		"animate-opening-applications",
 	}
 	for _, key := range expected {
 		if _, ok := Lookup("dock", key); !ok {
