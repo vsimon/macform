@@ -48,6 +48,10 @@ Run tests:
 mise test
 ```
 
-## Documentation
+## Providers
+
+Provider descriptions and settings reference: [docs/providers.md](docs/providers.md)
+
+## Spec
 
 Full product requirements and design: [docs/spec.md](docs/spec.md)
