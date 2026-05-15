@@ -6,13 +6,13 @@ Declarative macOS system settings - define your preferences in YAML and apply th
 
 ## Install
 
-```
+```sh
 brew install vsimon/tap/macform
 ```
 
 ## Quick start
 
-```bash
+```sh
 # Snapshot current settings into a spec file
 macform generate
 
@@ -35,16 +35,16 @@ Requires macOS Tahoe or later.
 
 Requires [mise](https://mise.jdx.dev) (`brew install mise`)
 
-Run to get started:
+To get started:
 
-```bash
+```sh
 mise install
 mise build
 ```
 
 Run tests:
 
-```bash
+```sh
 mise test
 ```
 
