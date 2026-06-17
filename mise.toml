@@ -18,6 +18,10 @@ postinstall = "hk install --mise"
 description = "Build the binary"
 run = "go build -o bin/macform main.go"
 
+[tasks.build-integration-test]
+description = "Build integration test binary"
+run = "go test -c -tags=integration -o bin/integration.test ./integration/"
+
 [tasks.test]
 description = "Run tests"
 run = "go test ./..."
