@@ -1,0 +1,2 @@
+exec $MACFORM --version
+stdout 'macform dev'

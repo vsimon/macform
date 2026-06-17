@@ -22,6 +22,11 @@ run = "go build -o bin/macform main.go"
 description = "Run tests"
 run = "go test ./..."
 
+[tasks.integration-test]
+description = "Run integration tests"
+depends = ["build"]
+run = "MACFORM=$PWD/bin/macform go test -tags=integration -v -count=1 ./integration/..."
+
 [tasks.clean]
 description = "Remove build artifacts"
 run = "rm -rf bin/"
