@@ -3,7 +3,9 @@
 package integration
 
 import (
+	"bytes"
 	"os"
+	"os/exec"
 	"testing"
 
 	"github.com/rogpeppe/go-internal/testscript"
@@ -25,6 +27,14 @@ func TestScripts(t *testing.T) {
 		Setup: func(env *testscript.Env) error {
 			env.Setenv("MACFORM", macformBin)
 			return nil
+		},
+		Condition: func(cond string) (bool, error) {
+			switch cond {
+			case "builtin-display":
+				out, _ := exec.Command("system_profiler", "SPDisplaysDataType").Output()
+				return bytes.Contains(out, []byte("Built-in")), nil
+			}
+			return false, nil
 		},
 	})
 }
