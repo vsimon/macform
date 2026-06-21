@@ -1,0 +1,7 @@
+env NO_COLOR=1
+[builtin-display] exec $MACFORM plan -f spec.yaml
+[builtin-display] stdout '(No changes|auto-brightness)'
+
+-- spec.yaml --
+display:
+  auto-brightness: true
