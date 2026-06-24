@@ -33,6 +33,9 @@ func TestScripts(t *testing.T) {
 			case "builtin-display":
 				out, _ := exec.Command("system_profiler", "SPDisplaysDataType").Output()
 				return bytes.Contains(out, []byte("Built-in")), nil
+			case "has-battery":
+				out, _ := exec.Command("system_profiler", "SPPowerDataType").Output()
+				return bytes.Contains(out, []byte("Battery Information")), nil
 			}
 			return false, nil
 		},
