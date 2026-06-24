@@ -1,0 +1,7 @@
+env NO_COLOR=1
+[has-battery] exec $MACFORM plan -f spec.yaml
+[has-battery] stdout '(No changes|slightly-dim-on-battery)'
+
+-- spec.yaml --
+battery:
+  slightly-dim-on-battery: true
